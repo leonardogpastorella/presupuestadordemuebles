@@ -38,9 +38,8 @@ while (continuar === "si") {
     for (let mueble of muebles) {
         if (mueble === tipoMueble) {
             muebleSeleccionado = mueble;
-            break;
+            break;    }
         }
-    }
     
     //si el mueble no se encuentra en la lista
     if (muebleSeleccionado === null) {
