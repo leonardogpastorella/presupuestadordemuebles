@@ -5,7 +5,6 @@ const muebles = [
     { nombre: "biblioteca", precioMetro: 300000, precioCajon: 35000 }
 ];
 
-let presupuestos = JSON.parse(localStorage.getItem("presupuestos")) || [];
 
 
 const selectMueble = document.getElementById("muebleSelect");
@@ -53,8 +52,10 @@ botonCalcular.addEventListener("click", () => {
     const total = calcularTotal(muebleEncontrado, metros, cajones);
 
     mostrarResultado(muebleEncontrado, metros, cajones, total);
-});
 
+    guardarPresupuesto(muebleEncontrado.nombre, metros, cajones, total);
+    mostrarPresupuesto();
+});
 
 
 
