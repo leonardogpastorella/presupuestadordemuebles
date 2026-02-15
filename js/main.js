@@ -1,81 +1,61 @@
+ 
+const muebles = [
+    { nombre: "placard", precioMetro: 350000, precioCajon: 40000 },
+    { nombre: "cocina", precioMetro: 400000, precioCajon: 45000 },
+    { nombre: "biblioteca", precioMetro: 300000, precioCajon: 35000 }
+];
 
-const muebles = ["placard", "cocina", "biblioteca"] 
-
-const precioMetro = 350000;
-
-const precioCajon = 40000;
+let presupuestos = JSON.parse(localStorage.getItem("presupuestos")) || [];
 
 
-function elegirMueble(listaMuebles) {
-    let tipoMueble = prompt("Elegí un mueble: placard, biblioteca o cocina");
-    if (!tipoMueble) {
-        return null;
-    }
-    tipoMueble = tipoMueble.toLowerCase();
-    for (let mueble of listaMuebles) {
-        if (mueble === tipoMueble) {
-            return mueble;
-        }
-    }
-    return null;
+const selectMueble = document.getElementById("muebleSelect");
+const inputMetros = document.getElementById("metros");
+const inputCajones = document.getElementById("cajones");
+const botonCalcular = document.getElementById("calcularBtn");
+const resultadoDiv = document.getElementById("resultado");
+
+
+muebles.forEach(mueble => {
+    const option = document.createElement("option");
+    option.value = mueble.nombre;
+    option.textContent = mueble.nombre;
+    selectMueble.appendChild(option);
+});
+
+function calcularTotal(mueble, metros, cajones) {
+    return (metros * mueble.precioMetro) +
+           (cajones * mueble.precioCajon);
 }
 
-function pedirMedidas() {
-
-    let metros = parseInt(prompt("Ingresá los metros lineales"));
-    let cajones = parseInt(prompt("Cantidad de cajones"));
-
-    if (metros <= 0 || cajones < 0) {
-        return null;
-    }
-
-    return {
-        metros: metros,
-        cajones: cajones
-    };
-}
-
-function calcularPresupuesto(metros, cajones) {
-    let precioBase = metros * precioMetro;
-    let extraCajones = cajones * precioCajon;
-    return precioBase + extraCajones;
+function mostrarResultado(mueble, metros, cajones, total) {
+    resultadoDiv.innerHTML = `
+        <p><strong>Mueble:</strong> ${mueble.nombre}</p>
+        <p><strong>Metros:</strong> ${metros}</p>
+        <p><strong>Cajones:</strong> ${cajones}</p>
+        <p><strong>Total:</strong> $${total}</p>
+    `;
 }
 
 
-function mostrarPresupuesto(mueble, metros, cajones, total) {
-    alert(
-        "Presupuesto final:\n" +
-        "Mueble: " + mueble + "\n" +
-        "Metros: " + metros + "\n" +
-        "Cajones: " + cajones + "\n" +
-        "Total: $" + total
-    );
-}
+botonCalcular.addEventListener("click", () => {
 
+    const nombreSeleccionado = selectMueble.value;
+    const metros = parseInt(inputMetros.value);
+    const cajones = parseInt(inputCajones.value);
 
-let continuar = "si";
-
-while (continuar === "si") {
-
-    let mueble = elegirMueble(muebles);
-
-    if (mueble === null) {
-        alert("Mueble no válido");
-        continuar = prompt("¿Calcular otro presupuesto? si / no");
-        continue;
+    if (metros <= 0 || cajones < 0 || isNaN(metros) || isNaN(cajones)) {
+        resultadoDiv.textContent = "Datos inválidos";
+        return;
     }
 
-    let datos = pedirMedidas();
+    const muebleEncontrado = muebles.find(m => m.nombre === nombreSeleccionado);
 
-    if (datos === null) {
-        alert("Datos inválidos");
-        continuar = prompt("¿Calcular otro presupuesto? si / no");
-        continue;
-    }
+    const total = calcularTotal(muebleEncontrado, metros, cajones);
 
-    let total = calcularPresupuesto(datos.metros, datos.cajones);
+    mostrarResultado(muebleEncontrado, metros, cajones, total);
+});
 
-    mostrarPresupuesto(mueble, datos.metros, datos.cajones, total);
 
-    continuar = prompt("¿Calcular otro presupuesto? si / no");
-}
+
+
+

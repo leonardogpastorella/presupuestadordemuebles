@@ -7,8 +7,35 @@
     <title>Presupuesto de Muebles</title>
 </head>
 <body>
+
     <h1>Presupuestador de muebles a medida</h1>
+
+    <div class="formulario">
+
+        <label>Mueble:</label>
+        <select id="muebleSelect"></select>
+
+        <label>Metros lineales:</label>
+        <input type="number" id="metros" min="1">
+
+        <label>Cajones:</label>
+        <input type="number" id="cajones" min="0">
+
+        <button id="calcularBtn">Calcular presupuesto</button>
+
+    </div>
+
+    <div id="resultado"></div>
+
+    <section id="revisarPresupuesto">
+    <h2>📋 Revisar Presupuesto</h2>
+    <div id="contenidoPresupuesto">
+    <p>No hay presupuesto generado.</p>
+    </div>
+</section>
+
 
 
 </body>
+
 </html>
