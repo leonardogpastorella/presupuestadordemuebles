@@ -2,7 +2,7 @@
 const muebles = [
     { nombre: "placard", precioMetro: 350000, precioCajon: 40000 },
     { nombre: "cocina", precioMetro: 400000, precioCajon: 45000 },
-    { nombre: "biblioteca", precioMetro: 300000, precioCajon: 35000 }
+    { nombre: "biblioteca", precioMetro: 300000, precioCajon: 45000 }
 ];
 
 
@@ -28,10 +28,10 @@ function calcularTotal(mueble, metros, cajones) {
 
 function mostrarResultado(mueble, metros, cajones, total) {
     resultadoDiv.innerHTML = `
-        <p><strong>Mueble:</strong> ${mueble.nombre}</p>
-        <p><strong>Metros:</strong> ${metros}</p>
-        <p><strong>Cajones:</strong> ${cajones}</p>
-        <p><strong>Total:</strong> $${total}</p>
+        <p>Mueble: ${mueble.nombre}</p>
+        <p>Metros: ${metros}</p>
+        <p>Cajones: ${cajones}</p>
+        <p>Total: $${total}</p>
     `;
 }
 

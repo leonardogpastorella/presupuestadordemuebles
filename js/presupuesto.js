@@ -14,15 +14,15 @@ function mostrarPresupuesto(){
     const presupuestoGuardado = JSON.parse(localStorage.getItem("presupuesto"));
 
     if (!presupuestoGuardado)    {
-        contenedor.innerHTML = "<p>No hay presupuesto guardado.</p>";
+        contenedor.innerHTML = "<p>No hay presupuesto guardado</p>";
         return;
     }
 
     contenedor.innerHTML = `
-        <p><strong>Mueble:</strong> ${presupuestoGuardado.mueble}</p>
-        <p><strong>Metros:</strong> ${presupuestoGuardado.metros}</p>
-        <p><strong>Cajones:</strong> ${presupuestoGuardado.cajones}</p>
-        <p><strong>Total:</strong> $${presupuestoGuardado.total}</p>
+        <p>Mueble: ${presupuestoGuardado.mueble}</p>
+        <p>Metros: ${presupuestoGuardado.metros}</p>
+        <p>Cajones: ${presupuestoGuardado.cajones}</p>
+        <p>Total: $${presupuestoGuardado.total}</p>
         <button id="eliminarbtn">Eliminar Presupuesto</button>
         <button id="enviarbtn">Enviar Presupuesto</button>
 
