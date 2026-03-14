@@ -1,9 +1,26 @@
-function guardarPresupuesto(mueble, metros, cajones, total) {
+function guardarPresupuesto(
+        muebleEncontrado.nombre,
+        metros,
+        cajones,
+        total,
+        nombreCliente,
+        telefonoCliente,
+        emailCliente,
+        material,
+        color,
+        formaPago
+    ); {
     const presupuesto = { 
-        mueble: mueble, 
-        metros: metros, 
-        cajones: cajones, 
-        total: total
+        nombreCliente: nombreCliente,
+        telefonoCliente: telefonoCliente,
+        emailCliente: emailCliente,
+        mueble: muebleEncontrado,
+        metros: metros,
+        cajones: cajones,
+        total: total,
+        material: material,
+        color: color,
+        formaPago: formaPago
     }
 
 localStorage.setItem("presupuesto", JSON.stringify(presupuesto));
