@@ -1,10 +1,6 @@
- 
-const muebles = [
-    { nombre: "placard", precioMetro: 350000, precioCajon: 40000 },
-    { nombre: "cocina", precioMetro: 400000, precioCajon: 45000 },
-    { nombre: "biblioteca", precioMetro: 300000, precioCajon: 45000 }
-];
 
+
+const URL = "./db/data.json";
 
 
 const selectMueble = document.getElementById("muebleSelect");
@@ -13,13 +9,41 @@ const inputCajones = document.getElementById("cajones");
 const botonCalcular = document.getElementById("calcularBtn");
 const resultadoDiv = document.getElementById("resultado");
 
+let muebles = [];
 
-muebles.forEach(mueble => {
-    const option = document.createElement("option");
-    option.value = mueble.nombre;
-    option.textContent = mueble.nombre;
-    selectMueble.appendChild(option);
-});
+function obtenerMuebles() {
+
+    fetch(URL)
+        .then(response => response.json())
+        .then(data => {
+            muebles = data
+            cargarMuebles(data)
+        })
+        .catch(error => {
+            resultadoDiv.textContent = "Error al cargar los muebles."
+        })
+
+}
+
+function cargarMuebles(listaMuebles) {
+
+    listaMuebles.forEach(mueble => {
+
+        const option = document.createElement("option")
+
+        option.value = mueble.nombre
+        option.textContent = mueble.nombre
+
+        selectMueble.appendChild(option)
+
+    })
+
+}
+
+obtenerMuebles()
+
+
+
 
 function calcularTotal(mueble, metros, cajones) {
     return (metros * mueble.precioMetro) +

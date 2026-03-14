@@ -1,0 +1,17 @@
+[
+    {
+        "nombre": "placard",
+        "precioMetro": 350000,
+        "precioCajon": 40000
+    },
+    {
+        "nombre": "cocina",
+        "precioMetro": 400000,
+        "precioCajon": 45000
+    },
+    {
+        "nombre": "biblioteca",
+        "precioMetro": 300000,
+        "precioCajon": 35000
+    }
+]
