@@ -6,8 +6,8 @@ const URL = "./db/data.json";
 const selectMueble = document.getElementById("muebleSelect");
 const inputMetros = document.getElementById("metros");
 const inputCajones = document.getElementById("cajones");
-const selectMaterial = document.getElementById("material");
-const inputColor = document.getElementById("color");
+const selectMaterial = document.getElementById("selectMaterial");
+//const inputColor = document.getElementById("color");
 const selectPago = document.getElementById("formaPago");
 const botonCalcular = document.getElementById("calcularBtn");
 const resultadoDiv = document.getElementById("resultado");
@@ -58,9 +58,19 @@ function calcularTotal(mueble, metros, cajones) {
            (cajones * mueble.precioCajon);
 }
 
-function mostrarResultado(mueble, metros, cajones, total, nombreCliente, telefonoCliente, emailCliente, material, color, formaPago) {
+function mostrarResultado(
+    mueble,
+    metros, 
+    cajones, 
+    total, 
+    nombreCliente, 
+    telefonoCliente, 
+    emailCliente, 
+    material, 
+    formaPago
+) {
     resultadoDiv.innerHTML = `
-        p>Cliente: ${nombreCliente}</p>
+        <p>Cliente: ${nombreCliente}</p>
         <p>Teléfono: ${telefonoCliente}</p>
         <p>Email: ${emailCliente}</p>
 
@@ -69,7 +79,7 @@ function mostrarResultado(mueble, metros, cajones, total, nombreCliente, telefon
         <p>Metros: ${metros}</p>
         <p>Cajones: ${cajones}</p>
         <p>Material: ${material}</p>
-        <p>Color: ${color}</p>
+        
 
         <p>Forma de Pago: ${formaPago}</p>
 
@@ -83,9 +93,11 @@ botonCalcular.addEventListener("click", () => {
     const nombreSeleccionado = selectMueble.value;
     const metros = parseInt(inputMetros.value);
     const cajones = parseInt(inputCajones.value);
+
     const material = selectMaterial.value;
-    const color = inputColor.value;
+    // const color = inputColor.value;
     const formaPago = selectPago.value;
+    
     const nombreCliente = inputNombre.value;
     const telefonoCliente = inputTelefono.value;
     const emailCliente = inputEmail.value;
@@ -109,7 +121,7 @@ botonCalcular.addEventListener("click", () => {
         telefonoCliente,
         emailCliente,
         material,
-        color,
+        //color,
         formaPago
     );
 

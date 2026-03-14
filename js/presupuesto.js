@@ -51,9 +51,9 @@ function mostrarPresupuesto(){
 
     
 
-   
-    document.getElementById("eliminarbtn").addEventListener("click", eliminarPresupuesto)
-    document.getElementById("enviarbtn").addEventListener("click", enviarPresupuesto)
+
+    //document.getElementById("eliminarbtn").addEventListener("click", eliminarPresupuesto)
+    //document.getElementById("enviarbtn").addEventListener("click", enviarPresupuesto)
 
 function eliminarPresupuesto(id) {
     presupuestos = presupuestos.filter(p => p.id !== id);
