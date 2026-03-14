@@ -1,55 +1,63 @@
-function guardarPresupuesto(
-        muebleEncontrado.nombre,
-        metros,
-        cajones,
-        total,
+
+    let presupuestos = JSON.parse(localStorage.getItem("presupuestos")) || [];
+    
+    function guardarPresupuesto(
+    nombreCliente,
+    telefonoCliente,
+    emailCliente,
+    mueble,
+    metros,
+    cajones,
+    material,
+    color,
+    formaPago,
+    total
+) {
+    const presupuesto = {
         nombreCliente,
         telefonoCliente,
         emailCliente,
+        mueble,
+        metros,
+        cajones, 
         material,
         color,
-        formaPago
-    ); {
-    const presupuesto = { 
-        nombreCliente: nombreCliente,
-        telefonoCliente: telefonoCliente,
-        emailCliente: emailCliente,
-        mueble: muebleEncontrado,
-        metros: metros,
-        cajones: cajones,
-        total: total,
-        material: material,
-        color: color,
-        formaPago: formaPago
+        formaPago,
+        total
     }
-
-localStorage.setItem("presupuesto", JSON.stringify(presupuesto));
+    presupuestos.push(presupuesto);
+localStorage.setItem("presupuestos", JSON.stringify(presupuestos));
 }
 
 function mostrarPresupuesto(){
     const contenedor = document.getElementById("contenidoPresupuesto")
-    const presupuestoGuardado = JSON.parse(localStorage.getItem("presupuesto"));
-
-    if (!presupuestoGuardado)    {
-        contenedor.innerHTML = "<p>No hay presupuesto guardado</p>";
+    if (presupuestos.length === 0)    {
+        contenedor.innerHTML = "<p>No hay presupuestos guardados</p>";
         return;
     }
 
-    contenedor.innerHTML = `
-        <p>Mueble: ${presupuestoGuardado.mueble}</p>
-        <p>Metros: ${presupuestoGuardado.metros}</p>
-        <p>Cajones: ${presupuestoGuardado.cajones}</p>
-        <p>Total: $${presupuestoGuardado.total}</p>
-        <button id="eliminarbtn">Eliminar Presupuesto</button>
-        <button id="enviarbtn">Enviar Presupuesto</button>
+    contenedor.innerHTML = ""
+    presuspuestos.forEach(p => {
+        contenedor.innerHTML += `
+        div class="presupuesto">
+            <p>Cliente: ${p.nombreCliente}</p>
+            <p>Mueble: ${p.mueble}</p>
+            <p>total: $${p.total}</p>
 
-    `
+            <button onclick = "eliminarPresupuesto(${p.id})">Eliminar</button>
+        </div>  `
+            })
+        }
+
+    
+
+   
     document.getElementById("eliminarbtn").addEventListener("click", eliminarPresupuesto)
     document.getElementById("enviarbtn").addEventListener("click", enviarPresupuesto)
-}
 
-function eliminarPresupuesto() {
-    localStorage.removeItem("presupuesto");
+function eliminarPresupuesto(id) {
+    presupuestos = presupuestos.filter(p => p.id !== id);
+    localStorage.setItem("presupuestos", JSON.stringify(presupuestos));
     mostrarPresupuesto();
 }
 
@@ -59,5 +67,5 @@ function enviarPresupuesto() {
     mostrarPresupuesto();
 }
 
-document.addEventListener("DOMContentLoaded", mostrarPresupuesto)
+
 
