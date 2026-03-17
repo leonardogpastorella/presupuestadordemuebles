@@ -2,18 +2,17 @@
 
 const URL = "./db/data.json";
 
-
+const inputNombre = document.getElementById("clienteNombre");
+const inputTelefono = document.getElementById("clienteTelefono");
+const inputEmail = document.getElementById("clienteEmail");
 const selectMueble = document.getElementById("muebleSelect");
 const inputMetros = document.getElementById("metros");
 const inputCajones = document.getElementById("cajones");
 const selectMaterial = document.getElementById("selectMaterial");
-//const inputColor = document.getElementById("color");
 const selectPago = document.getElementById("formaPago");
 const botonCalcular = document.getElementById("calcularBtn");
 const resultadoDiv = document.getElementById("resultado");
-const inputNombre = document.getElementById("clienteNombre");
-const inputTelefono = document.getElementById("clienteTelefono");
-const inputEmail = document.getElementById("clienteEmail");
+
 
 
 
@@ -59,30 +58,26 @@ function calcularTotal(mueble, metros, cajones) {
 }
 
 function mostrarResultado(
-    mueble,
-    metros, 
-    cajones, 
-    total, 
     nombreCliente, 
     telefonoCliente, 
     emailCliente, 
+    mueble,
+    metros, 
+    cajones, 
     material, 
-    formaPago
+    formaPago,
+    total    
+    
 ) {
     resultadoDiv.innerHTML = `
         <p>Cliente: ${nombreCliente}</p>
         <p>Teléfono: ${telefonoCliente}</p>
         <p>Email: ${emailCliente}</p>
-
-
         <p>Mueble: ${mueble.nombre}</p>
         <p>Metros: ${metros}</p>
         <p>Cajones: ${cajones}</p>
         <p>Material: ${material}</p>
-        
-
         <p>Forma de Pago: ${formaPago}</p>
-
         <p>Total: $${total}</p>
     `;
 }
@@ -113,19 +108,28 @@ botonCalcular.addEventListener("click", () => {
     const total = calcularTotal(muebleEncontrado, metros, cajones);
 
     mostrarResultado(
-        muebleEncontrado,
-        metros,
-        cajones,
-        total,
-        nombreCliente,
-        telefonoCliente,
-        emailCliente,
-        material,
-        //color,
-        formaPago
-    );
+    nombreCliente,
+    telefonoCliente,
+    emailCliente,
+    muebleEncontrado,
+    metros,
+    cajones,
+    material,
+    formaPago,
+    total
+);
 
-    guardarPresupuesto(muebleEncontrado.nombre, metros, cajones, total);
+ guardarPresupuesto(
+    nombreCliente,
+    telefonoCliente,
+    emailCliente,
+    muebleEncontrado.nombre,
+    metros,
+    cajones,
+    material,
+    formaPago,
+    total
+);
     mostrarPresupuesto();
 });
 

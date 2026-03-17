@@ -9,21 +9,19 @@
     metros,
     cajones,
     material,
-    color,
     formaPago,
     total
 ) {
     const presupuesto = {
-        nombreCliente,
-        telefonoCliente,
-        emailCliente,
-        mueble,
-        metros,
-        cajones, 
-        material,
-        color,
-        formaPago,
-        total
+    nombreCliente,
+    telefonoCliente,
+    emailCliente,
+    mueble,
+    metros,
+    cajones,
+    material,
+    formaPago,
+    total
     }
     let presupuestos = JSON.parse(localStorage.getItem("presupuestos")) || [];
     presupuestos.push(presupuesto);
@@ -53,7 +51,10 @@ function mostrarPresupuesto(){
             <p>Mueble: ${presupuesto.mueble}</p>
             <p>Total: $${presupuesto.total}</p>
 
-            <button onclick="eliminarPresupuesto(${index})">Eliminar</button>
+            
+                <button onclick="eliminarPresupuesto(${index})">Eliminar</button>
+    <button onclick="editarPresupuesto(${index})">Editar</button>
+
         `
 
         contenedor.appendChild(div)
@@ -62,11 +63,6 @@ function mostrarPresupuesto(){
 
 }
 
-    
-
-
-    //document.getElementById("eliminarbtn").addEventListener("click", eliminarPresupuesto)
-    //document.getElementById("enviarbtn").addEventListener("click", enviarPresupuesto)
 
 function eliminarPresupuesto(index){
 
@@ -81,7 +77,7 @@ function eliminarPresupuesto(index){
 }
 function enviarPresupuesto() {
     alert("presupuesto enviado correctamente.")
-    localStorage.removeItem("presupuesto");
+    
     mostrarPresupuesto();
 }
 
