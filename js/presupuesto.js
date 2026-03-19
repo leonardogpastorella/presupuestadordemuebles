@@ -1,4 +1,6 @@
 
+    let indiceEditando = null;
+
     let presupuestos = JSON.parse(localStorage.getItem("presupuestos")) || [];
     
     function guardarPresupuesto(
@@ -96,7 +98,11 @@ function editarPresupuesto(index) {
     title: "Editando",
     text: "Modificá los datos y recalculá el presupuesto",
     icon: "info"
+
+    
 });
+
+window.scrollTo(0,0);
 }
 
 function eliminarPresupuesto(index){

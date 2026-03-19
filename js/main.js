@@ -18,18 +18,29 @@ const resultadoDiv = document.getElementById("resultado");
 
 let muebles = [];
 
-function obtenerMuebles() {
+async function obtenerMuebles() {
+    try {
+        const response = await fetch(URL);
 
-    fetch(URL)
-        .then(response => response.json())
-        .then(data => {
-            muebles = data
-            cargarMuebles(data)
-        })
-        .catch(error => {
-            resultadoDiv.textContent = "Error al cargar los muebles."
-        })
+        if (!response.ok) {
+            throw new Error("Error en la respuesta del servidor");
+        }
 
+        const data = await response.json();
+
+        muebles = data;
+        cargarMuebles(data);
+
+    } catch (err) {
+
+        Swal.fire({
+            title: "Error",
+            text: "No se pudieron cargar los muebles. Intentá nuevamente.",
+            icon: "error"
+        });
+
+        resultadoDiv.textContent = "Error al cargar los muebles.";
+    }
 }
 
 function cargarMuebles(listaMuebles) {
@@ -155,7 +166,6 @@ botonCalcular.addEventListener("click", () => {
             icon: "info"
         });
     }
-
-});
+    });
 });
 mostrarPresupuesto();
