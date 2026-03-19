@@ -24,7 +24,14 @@
     total
     }
     let presupuestos = JSON.parse(localStorage.getItem("presupuestos")) || [];
-    presupuestos.push(presupuesto);
+    
+    if (indiceEditando !== null) {
+        presupuestos[indiceEditando] = presupuesto;
+        indiceEditando = null;
+    } else {
+        presupuestos.push(presupuesto);
+    }
+
 localStorage.setItem("presupuestos", JSON.stringify(presupuestos));
 }
 
@@ -49,11 +56,14 @@ function mostrarPresupuesto(){
         div.innerHTML = `
             <p><strong>Cliente:</strong> ${presupuesto.nombreCliente}</p>
             <p>Mueble: ${presupuesto.mueble}</p>
+            <p>metros: ${presupuesto.metros}</p>
+            <p>cajones: ${presupuesto.cajones}</p>
+            <p>material: ${presupuesto.material}</p>
+            <p>forma de pago: ${presupuesto.formaPago}</p>
             <p>Total: $${presupuesto.total}</p>
 
-            
-                <button onclick="eliminarPresupuesto(${index})">Eliminar</button>
-    <button onclick="editarPresupuesto(${index})">Editar</button>
+            <button onclick="eliminarPresupuesto(${index})">Eliminar</button>
+            <button onclick="editarPresupuesto(${index})">Editar</button>
 
         `
 
@@ -63,6 +73,31 @@ function mostrarPresupuesto(){
 
 }
 
+function editarPresupuesto(index) {
+
+    let presupuestos = JSON.parse(localStorage.getItem("presupuestos")) || [];
+
+    const presupuesto = presupuestos[index];
+
+    indiceEditando = index;
+
+    document.getElementById("clienteNombre").value = presupuesto.nombreCliente;
+    document.getElementById("clienteTelefono").value = presupuesto.telefonoCliente;
+    document.getElementById("clienteEmail").value = presupuesto.emailCliente;
+
+    document.getElementById("muebleSelect").value = presupuesto.mueble;
+    document.getElementById("metros").value = presupuesto.metros;
+    document.getElementById("cajones").value = presupuesto.cajones;
+    document.getElementById("selectMaterial").value = presupuesto.material;
+    document.getElementById("formaPago").value = presupuesto.formaPago;
+    
+    
+    Swal.fire({
+    title: "Editando",
+    text: "Modificá los datos y recalculá el presupuesto",
+    icon: "info"
+});
+}
 
 function eliminarPresupuesto(index){
 
@@ -76,7 +111,12 @@ function eliminarPresupuesto(index){
 
 }
 function enviarPresupuesto() {
-    alert("presupuesto enviado correctamente.")
+    Swal.fire({
+    title: "¡Enviado!",
+    text: "El presupuesto fue enviado correctamente",
+    icon: "success",
+    confirmButtonText: "OK"
+});
     
     mostrarPresupuesto();
 }

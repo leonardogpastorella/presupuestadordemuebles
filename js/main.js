@@ -79,6 +79,8 @@ function mostrarResultado(
         <p>Material: ${material}</p>
         <p>Forma de Pago: ${formaPago}</p>
         <p>Total: $${total}</p>
+
+       
     `;
 }
 
@@ -90,13 +92,11 @@ botonCalcular.addEventListener("click", () => {
     const cajones = parseInt(inputCajones.value);
 
     const material = selectMaterial.value;
-    // const color = inputColor.value;
     const formaPago = selectPago.value;
     
     const nombreCliente = inputNombre.value;
     const telefonoCliente = inputTelefono.value;
     const emailCliente = inputEmail.value;
-
 
     if (metros <= 0 || cajones < 0 || isNaN(metros) || isNaN(cajones)) {
         resultadoDiv.textContent = "Datos inválidos";
@@ -104,35 +104,58 @@ botonCalcular.addEventListener("click", () => {
     }
 
     const muebleEncontrado = muebles.find(m => m.nombre === nombreSeleccionado);
-
     const total = calcularTotal(muebleEncontrado, metros, cajones);
 
     mostrarResultado(
-    nombreCliente,
-    telefonoCliente,
-    emailCliente,
-    muebleEncontrado,
-    metros,
-    cajones,
-    material,
-    formaPago,
-    total
-);
+        nombreCliente,
+        telefonoCliente,
+        emailCliente,
+        muebleEncontrado,
+        metros,
+        cajones,
+        material,
+        formaPago,
+        total
+    );
 
- guardarPresupuesto(
-    nombreCliente,
-    telefonoCliente,
-    emailCliente,
-    muebleEncontrado.nombre,
-    metros,
-    cajones,
-    material,
-    formaPago,
-    total
-);
-    mostrarPresupuesto();
+    Swal.fire({
+    title: "¿Enviar presupuesto?",
+    text: "Revisá los datos antes de continuar",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Enviar",
+    cancelButtonText: "Seguir editando"
+}).then((result) => {
+
+    if (result.isConfirmed) {
+
+        guardarPresupuesto(
+            nombreCliente,
+            telefonoCliente,
+            emailCliente,
+            muebleEncontrado.nombre,
+            metros,
+            cajones,
+            material,
+            formaPago,
+            total
+        );
+
+        mostrarPresupuesto();
+
+        Swal.fire({
+            title: "¡Enviado!",
+            text: "El presupuesto fue enviado y guardado correctamente",
+            icon: "success"
+        });
+
+    } else {
+        Swal.fire({
+            title: "Podés seguir editando",
+            icon: "info"
+        });
+    }
+
 });
-
-
-
-
+});
+mostrarPresupuesto();
